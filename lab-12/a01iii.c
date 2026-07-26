@@ -29,15 +29,15 @@ void insertlist(int k){
         Last = new;
     }
 }
-void insertAtFirst(){
+void insertAtLast(){
     struct Node *new;
 
     new = (struct Node *)malloc(sizeof(struct Node));
 
     printf("enter a info of new Node: ");
     scanf("%d",&new->Info);
-    new->lptr = NULL;
-    new->rptr = First;
+    new->rptr = NULL;
+    new->lptr = Last;
 
     if (First == NULL)
     {
@@ -45,8 +45,8 @@ void insertAtFirst(){
     }
     else
     {
-        First->lptr = new;
-        First = new;
+        Last->rptr = new;
+        Last = new;
     }
 }
 void display(){
@@ -76,7 +76,7 @@ int main(){
         insertlist(k);
     }
 
-    insertAtFirst();
+    insertAtLast();
     display();
 
     return 0;

@@ -10,44 +10,27 @@ struct Node *First = NULL;
 struct Node *Last = NULL;
 
 void insertlist(int k){
-    struct Node *new;
+    struct Node *newNode;
 
-    new = (struct Node *)malloc(sizeof(struct Node));
+    newNode = (struct Node *)malloc(sizeof(struct Node));
 
-    new->Info = k;
-    new->rptr = NULL;
-    new->lptr = NULL;
+    newNode->Info = k;
+    newNode->rptr = NULL;
+    newNode->lptr = NULL;
 
     if (First == NULL)
     {
-        First = Last = new;
+        First = Last = newNode;
     }
     else
     {
-        Last->rptr = new;
-        new->lptr = Last;
-        Last = new;
+        Last->rptr = newNode;
+        newNode->lptr = Last;
+        Last = newNode;
     }
 }
-void insertAtFirst(){
-    struct Node *new;
-
-    new = (struct Node *)malloc(sizeof(struct Node));
-
-    printf("enter a info of new Node: ");
-    scanf("%d",&new->Info);
-    new->lptr = NULL;
-    new->rptr = First;
-
-    if (First == NULL)
-    {
-        First = Last = new;
-    }
-    else
-    {
-        First->lptr = new;
-        First = new;
-    }
+void alternateNode(){
+     
 }
 void display(){
     struct Node *temp = First;

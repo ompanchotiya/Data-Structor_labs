@@ -29,25 +29,48 @@ void insertlist(int k){
         Last = new;
     }
 }
-void insertAtFirst(){
-    struct Node *new;
+void deleteAtSpc(int pos){
+    struct Node *save;
+    int i;
 
-    new = (struct Node *)malloc(sizeof(struct Node));
+    if(First == NULL){
+        printf("List is enpty");
+        return;
+    }
+    if(pos == 1){
+        First = First->rptr;
 
-    printf("enter a info of new Node: ");
-    scanf("%d",&new->Info);
-    new->lptr = NULL;
-    new->rptr = First;
-
-    if (First == NULL)
+        if(First != NULL){
+            First->lptr = NULL;
+        }
+        else{
+            Last = NULL;
+        }
+        free(save);
+        return;
+    }
+    for (i=1; i<pos && save!=NULL; i++)
     {
-        First = Last = new;
+        save = save->rptr;
+    }
+
+    if (save == NULL)
+    {
+        printf("Invalid Position\n");
+        return;
+    }
+    if (save == Last)
+    {
+        Last = save->lptr;
+        Last->rptr = NULL;
     }
     else
     {
-        First->lptr = new;
-        First = new;
+        save->lptr->rptr = save->rptr;
+        save->rptr->lptr = save->lptr;
     }
+
+    free(save);
 }
 void display(){
     struct Node *temp = First;
@@ -64,7 +87,7 @@ void display(){
 }
 
 int main(){
-    int n, k;
+    int n, k, pos=0;
 
     printf("enter A size of list: ");
     scanf("%d",&n);
@@ -75,8 +98,11 @@ int main(){
 
         insertlist(k);
     }
+    
+    printf("Enter a position You want to delete: ");
+    scanf("%d",&pos);
 
-    insertAtFirst();
+    deleteAtSpc(pos);
     display();
 
     return 0;
