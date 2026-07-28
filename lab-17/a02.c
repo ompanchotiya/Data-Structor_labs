@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 struct Node {
-    int data;
-    struct Node* next;
+    int Info;
+    struct Node* link;
 };
 
 struct Node* front = NULL;
@@ -11,21 +11,21 @@ struct Node* rear = NULL;
 
 void enqueue() {
     int val;
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    if (newNode == NULL) {
+    struct Node* new = (struct Node*)malloc(sizeof(struct Node));
+    if (new == NULL) {
         printf("Overflow\n");
         return;
     }
     
     scanf("%d", &val);
-    newNode->data = val;
-    newNode->next = NULL;
+    new->Info = val;
+    new->link = NULL;
 
     if (front == NULL && rear == NULL) {
-        front = rear = newNode;
+        front = rear = new;
     } else {
-        rear->next = newNode;
-        rear = newNode;
+        rear->link = new;
+        rear = new;
     }
 }
 
@@ -36,7 +36,7 @@ void dequeue() {
         return;
     }
     
-    front = front->next;
+    front = front->link;
     if (front == NULL) {
         rear = NULL;
     }
@@ -51,8 +51,8 @@ void display() {
     }
     
     while (temp != NULL) {
-        printf("%d ", temp->data);
-        temp = temp->next;
+        printf("%d ", temp->Info);
+        temp = temp->link;
     }
     printf("\n");
 }
