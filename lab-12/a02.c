@@ -1,66 +1,100 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct Node{
+
+struct node
+{
     int Info;
-    struct Node *lptr;
-    struct Node *rptr;
+    struct node *lptr;
+    struct node *rptr;
 };
 
-struct Node *First = NULL;
-struct Node *Last = NULL;
+struct node *First = NULL;
 
-void insertlist(int k){
-    struct Node *newNode;
+void insertlast()
+{
+    struct node *newnode, *temp;
 
-    newNode = (struct Node *)malloc(sizeof(struct Node));
+    newnode = (struct node *)malloc(sizeof(struct node));
 
-    newNode->Info = k;
-    newNode->rptr = NULL;
-    newNode->lptr = NULL;
+    printf("Enter Info: ");
+    scanf("%d", &newnode->Info);
+
+    newnode->rptr = NULL;
 
     if (First == NULL)
     {
-        First = Last = newNode;
+        newnode->lptr = NULL;
+        First = newnode;
+        return;
     }
-    else
-    {
-        Last->rptr = newNode;
-        newNode->lptr = Last;
-        Last = newNode;
-    }
-}
-void alternateNode(){
-     
-}
-void display(){
-    struct Node *temp = First;
 
-    printf("Doubly Linked List:\n");
+    temp = First;
+
+    while (temp->rptr != NULL)
+        temp = temp->rptr;
+
+    temp->rptr = newnode;
+    newnode->lptr = temp;
+}
+
+void display()
+{
+    struct node *temp;
+
+    if (First == NULL)
+    {
+        printf("List is empty.\n");
+        return;
+    }
+
+    temp = First;
 
     while (temp != NULL)
     {
-        printf("%d <-> ", temp->Info);
+        printf("%d", temp->Info);
         temp = temp->rptr;
     }
 
     printf("NULL\n");
 }
 
-int main(){
-    int n, k;
+void deleteAlternate()
+{
+    struct node *save, *prev;
 
-    printf("enter A size of list: ");
-    scanf("%d",&n);
+    prev = First;
 
-    for(int i=1; i<=n; i++){
-        printf("enter a Info: ");
-        scanf("%d",&k);
+    while (prev != NULL && prev->rptr != NULL)
+    {
+        save = prev->rptr;
 
-        insertlist(k);
+        prev->rptr = save->rptr;
+
+        if (save->rptr != NULL)
+            save->rptr->lptr = prev;
+
+        free(save);
+
+        prev = prev->rptr;
+    }
+}
+
+void main()
+{
+    int n, i;
+
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+
+    for (i = 1; i <= n; i++)
+    {
+        insertlast();
     }
 
-    insertAtFirst();
+    
     display();
 
-    return 0;
+    deleteAlternate();
+
+    display();
 }

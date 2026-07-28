@@ -33,7 +33,7 @@ int main(){
             break;
         }
     }
-    if(flag){
+    if(flag = 1){
         printf("Palindrome String\n");
     }
     else{
