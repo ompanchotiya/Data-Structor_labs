@@ -1,6 +1,6 @@
 #include<stdio.h>
 void main(){
-    int n;
+    int n, k;
 
     printf("Enter a size of array: ");
     scanf("%d",&n);
@@ -11,8 +11,8 @@ void main(){
         scanf("%d",&a[i]);
     }
 
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n-i+1;j++){
+    for(int i=0; i<n-1; i++){
+        for(int j=0; j<n ;j++){
             if(a[j] > a[j+1]){
                 int temp = a[j];
                 a[j] = a[j+1];
@@ -22,5 +22,5 @@ void main(){
     }
     for(int i=0; i<n; i++){
         printf("%d", a[i]);
-    }   
+    } 
 }
